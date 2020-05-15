@@ -19,7 +19,17 @@ router.post("/", (req, res) => {
     });
 });
 
-router.post("/:id/posts", (req, res) => {});
+router.post("/:id/posts", (req, res) => {
+  db.insert(req.body)
+          .then(newPost=>{
+              res.status(200).json(newPost)  
+          })
+          .catch(err=>{
+              res.status(500).json({
+                  message: "error updating the post list"
+              })
+          })
+});
 
 router.get("/", (req, res) => {
   db.get(req.query)
